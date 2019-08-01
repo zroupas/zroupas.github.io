@@ -9,8 +9,8 @@ exclude:
   - "/vendor/"
 
 # Site settings
-title: zroupas - System Engineer
-subtitle: "You’ve just found the most popular Blog out there!"
+title: Hi! I'm Zois Roupas
+subtitle: "Welcome to my personal Playground!"
 email: roupasz@gmail.com
 name: Zois Roupas
 description: >
@@ -80,7 +80,7 @@ social:
   - name: LinkedIn
     icon: linkedin
     username: Zois Roupas
-    url: www.linkedin.com/in/roupasz
+    url: https://www.linkedin.com/in/roupasz
     desc: Connect with me on LinkedIn
     share: true
 
