@@ -4,6 +4,7 @@ title:  "Hello World!"
 date:   2019-08-04 13:10:00
 author: Zois Roupas
 categories: general
+cover:  "/assets/2019-08-04.jpg"
 ---
 
 Welcome to my Blog! I’m not sure how you got here but I’m glad you did!
