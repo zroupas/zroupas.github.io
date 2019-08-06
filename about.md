@@ -6,11 +6,14 @@ permalink: /about/
 
 <img src="{{ site.baseurl }}/assets/profile-placeholder.gif" title="Profile Picture" class="profile">
 
-Centrarium is a custom theme for Jekyll, made by [Ben Centra][bencentra] for his own blog. He'd be humbled if you liked it enough to use it as well! Installation and configuration instructions can be found in the [GitHub repository](https://github.com/bencentra/centrarium).
+At the moment I am working as a DevOps Engineer, planning and deploying infrastructure on-premise, in the cloud, and in hybrid situations! I have worked mainly in Insurance and Telecommunication companies as a Systems & Database Design Engineer.
 
-This page is a good place to write about yourself, your project, your product, or whatever it is your site is for. You can replace the image above, or you can get rid of it entirely. 
+I'm always trying to combine creativity with engineering and develop different projects in order to gain more knowledge on trending technologies and currently I'm experimenting with Docker, Kubernetes and Automation Tools like Ansible and Puppet!
 
-You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](http://jekyllrb.com/). And you can find the source code for Jekyll at [github.com/jekyll/jekyll](https://github.com/jekyll/jekyll)
+In my free time I play Bass Guitar and I like to attend live concerts of my favourite bands. I'm watching a lot of series and movies, reading science fiction books and collecting all short of stuff from board games to vinyls and action figures!
+
+This Blog is based on a great custom theme for Jekyll named Centrarium , made by [Ben Centra][bencentra]. Installation and configuration instructions can be found in the [GitHub repository](https://github.com/bencentra/centrarium).
+You can also find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](http://jekyllrb.com/). And you can find the source code for Jekyll at [github.com/jekyll/jekyll](https://github.com/jekyll/jekyll)
 
 [centrarium]: https://github.com/bencentra/centrarium
 [bencentra]: http://bencentra.com
