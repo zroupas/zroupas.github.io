@@ -10,7 +10,7 @@ cover:  "/assets/2019-08-04.png"
 
 Welcome to my Blog! I’m not sure how you got here but I’m glad you did!
 
-In this Blog i will try to gather every bit of knowledge,information and configuration that i found around the web and tailored so as to feet my needs in order to keep it in one place. **And this is going to be a big challenge knowing me!**
+In this Blog i will try to gather every bit of knowledge,information and configuration that i found around the web and tailored so as to fit my needs in order to keep it in one place. **And this is going to be a big challenge knowing me!**
 
 You can also find some basic information about me [here]
 
