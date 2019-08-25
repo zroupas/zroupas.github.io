@@ -5,7 +5,7 @@ date:   2019-08-04 13:10:00
 author: Zois Roupas
 categories: general
 tags:	HelloWorld Welcome FirstPost
-cover:  "/assets/2019-08-04.png"
+cover:  "/assets/2019-08-04-hello-world/2019-08-04.png"
 ---
 
 Welcome to my Blog! I’m not sure how you got here but I’m glad you did!
