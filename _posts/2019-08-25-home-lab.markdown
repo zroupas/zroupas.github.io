@@ -1,0 +1,182 @@
+---
+layout: post
+title: "Home Lab Infrastructure"
+date: 2019-08-25 15:32:59
+author: Zois Roupas
+categories: General
+tags: general infrastructure lab
+cover: "/assets/2019-08-25-home-lab/infra.png"
+---
+<h1>Home Lab Infrastructure</h1>
+
+<hr>
+
+Hi again,
+  
+Before starting configuring and documenting all those awesome projects that i had in mind and that were going to change the world and leave history i had to decide whether i should buy a bare metal server or start searching the web in order to find the best solution on an internet ocean of different cloud services. Don't even want to talk about Collocation!
+
+In my mind both scenarios had their advantages and disadvantages,and i will lay down some of my thoughts,
+
+<h3>Homelab</h3>
+
+<h4>Advantages</h4>
+
+<ul>
+<li>Always available whenever we are ta home (and whenever we are not but this is another post on it's own).</li>
+<li>We have root access! We can do whatever we want without anyone's support.</li>
+<li>We can add as much disk space, ram as we like by paying the cost once and install whichever distribution is the right for us.</li>
+<li>Endless learning! We can setup a managed or unmanaged switch, and create vlans, firewall like pfsense or vyos. Then go for a GNS3 and setup F5 load balancing and finally install any virtual software application open source or  licensed, experiment with containers and VMs and all of these without any limitation.
+</li>
+</ul>
+
+<h4>Disdvantages</h4>
+<ul>
+<li>The stress of hardware failures, backup and recovery is all ours!</li>
+<li>Server cost and this can get very tricky when building a server, money wise of course.</li>
+<li>Extra electricity cost</li>
+</ul>
+
+<h3>Cloud</h3>
+
+<h4>Advantages</h4>
+  
+<ul>
+<li>No stress for hardware failures and backup (of course by paying a little more..)</li>
+<li>Always accessible from anywhere.</li>
+<li>Ability to scale easily,Redundancy and disaster recovery.</li>
+<li>No extra electricity cost!</li>
+</ul>  
+
+<h4>Disadvantages</h4>
+<ul>
+<li>Loss of Control and potential security and network issues</li>
+<li>Technical Issues that will need communication with the providers helpdesk.</li>
+<li>And last but not least, Cost,Cost,Cost!</li>
+</ul>  
+
+*Of course you can always find more advantages and disadvantages to each and every point above so you understand how difficult decision you have to make!*
+
+Finally, I decided that homelab (or home infrastructure after a few months..) is a must have if you want to get full control on what you pay and have the ability to do whatever comes in mind without having to think about extra cost. 
+
+**So I'm proud to present my Homelab playground!**
+
+<hr>
+
+<h2>Hardware</h2>
+
+<h3>Intel® NUC 7</h3>
+
+Some years ago I came across the Intel NUC (Next Unit of Computing) mini PCs which can provide enough resources with a competitive pricing. I bought my first unit back in 2015 and after that i was hooked, they are totally silent , consume far less power than a normal PC and can pack up to 32GB of RAM which makes them the perfect candidate for a personal mini Data center. 
+My latest Nuc is comprised of the following :
+
+<table cellspacing="0" cellpadding="0">
+  <tr>
+    <th>Specifications</th>
+  </tr>
+  <tr>
+    <td>Processor</td><td>Intel® Core™ i7-7567U processor (3.5 GHz to 4.0 GHz Turbo,1 Dual Core 4 MB cache, 28W TDP)</td>
+  </tr>
+  <tr class="even">
+    <td>System memory</td><td>24GB DDR4 SO-DIMM</td>
+  </tr>
+  <tr>
+    <td>Storage</td><td>1 x Samsung SSD 860 Evo M.2 250GB</td>
+  </tr>
+    <tr>
+    <td>Connectivity</td><td>1 x Intel® Gigabit LAN</td>
+  </tr>
+    <tr>
+    <td>Operating System</td><td>CentOS 7</td>
+  </tr>
+</table>
+
+<a href="/assets/2019-08-25-home-lab/nuc7i7.jpg" data-lightbox="nuc-large" data-title="Check out Intel Nuc 7th Gen">
+  <img src="/assets/2019-08-25-home-lab/nuc7i7.jpg" title="Check out Intel Nuc 7th Gen">
+</a>
+
+<br/>
+
+<h3>ZOTAC ZBOX ID80</h3>
+
+This was the first mini-PC that i bought in 2013 if i remember correctly and was part of a firewall configuration project that i had in mind back then. Now it serves as a Docker engine server where all my containers have their own host and resources. 
+To be honest if i hadn't already purchased Zotac i would go for a second NUC so as to experiment in cluster scenarios and add consistency but there are no such plans for the time being.
+(*Ok you got me! The second NUC would be a great fit for this project that i have in mind and would look great [How to Built a Lego Rack for Intel NUCs][How to Built a Lego Rack for Intel NUCs]*)
+
+Zotac is comprised of the following :
+
+<table cellspacing="0" cellpadding="0">
+  <tr>
+    <th>Specifications</th>
+  </tr>
+  <tr>
+    <td>Processor</td><td>Atom D2700 onboard</td>
+  </tr>
+  <tr class="even">
+    <td>System memory</td><td>16GB SO DIMM DDR3-1066 </td>
+  </tr>
+  <tr>
+    <td>Storage</td><td>1 x Sandisk SSD Plus 120GB</td>
+  </tr>
+    <tr>
+    <td>Connectivity</td><td>1 x Gigabit LAN</td>
+  </tr>
+    <tr>
+    <td>Operating System</td><td>CentOS 7</td>
+  </tr>
+</table>
+
+<a href="/assets/2019-08-25-home-lab/zotac.jpg" data-lightbox="nuc-large" data-title="Check out Zotac ID 80">
+  <img src="/assets/2019-08-25-home-lab/zotac.jpg" title="Check out Zotac ID 80">
+</a>
+
+<h3>Network-attached storage (NAS)</h3>
+
+For storage I'm using a QNAP TS-409 Pro which is quite old but the device's file server capabilities are quite impressive even though gigabit LAN ethernet isn't performing as expected due to CPU limitation. The TS-409 Pro offers RAID expansion and migration and can be configured as a remote FTP, UPnP, MySQL and Web Server. But the most important of the services offered by this NAS is the NFS export used by my local Ovirt KVM hypervisor to export VMs and keep daily backups.
+
+<a href="/assets/2019-08-25-home-lab/qnap.jpg" data-lightbox="nuc-large" data-title="Check out QNAP TS-409 Pro">
+  <img src="/assets/2019-08-25-home-lab/qnap.jpg" title="Check out QNAP TS-409 Pro">
+</a>
+
+<h3>Networking</h3>
+
+For the networking part and in order to create and manage VLANs for the firewalling projects I'm using a TP-LINK 8-Port Gigabit Unmanaged Pro Switch. It provides Intelligent management via a web user interface and downloadable utility. Some of the awesome features provided by this switch are :
+
+<ul class="default">
+  <li>IGMP Snooping V1/V2/V3</li>
+  <li>Static Link Aggregation</li>
+  <li>Port Mirroring</li>
+  <li>Cable Diagnostics</li>
+  <li>Loop Prevention</li>
+  <li>Supports up to 32 VLANs simultaneously (out of 4K VLAN IDs) MTU/Port/Tag VLAN</li>
+</ul>
+
+<a href="/assets/2019-08-25-home-lab/link-switch.png" data-lightbox="nuc-large" data-title="Check out TP-Link TL-SG108E V4">
+  <img src="/assets/2019-08-25-home-lab/link-switch.png" title="Check out TP-Link TL-SG108E V4">
+</a>
+
+<hr>
+
+<h2>Software</h2>
+
+<h3>oVirt Open Source Virtualization</h3>
+
+oVirt is an open-source virtualization solution, and is designed to manage our infrastructure. It uses the KVM hypervisor and is built upon several other community projects, including libvirt, Gluster, PatternFly, and Ansible. There of course other virtualization solutions like Proxmox VE,VMWare etc but i came across oVirt version 3.5 some years ago in a production environement and was very stable offering a powerful web interface and an API to interact.
+
+<h3>Docker</h3>
+
+Docker is a platform to develop and run applications. From the th official site "Docker Engine enables containerized applications to run anywhere consistently on any infrastructure, solving “dependency hell” for developers and operations teams, and eliminating the “it works on my laptop!” problem."
+In my homelab Docker Engine is running on CentOS7. 
+
+<h3>Configuration Management Tools</h3>
+
+Automation tools like Ansible,Puppet and Chef help you configure,deploy and manage your infrastructure with minimal input enabling a process known as infrastructure as code (IaC)
+
+<hr>
+
+<h2>Conclusion</h2>
+
+So this was it, I tried to document my Homelab with as many details as possible. This is my hobby, this is a personal playground used for learning and/or practising before rolling those experiments into production environments. It's a place where I'm free to experiment and don't be fooled, when you start following this path keep in mind that at some point it will get out of hand!
+
+*"I do not fear computers. I fear the lack of them."* - Isaac Asimov
+
+[How to Built a Lego Rack for Intel NUCs]: https://www.devtty.uk/homelab/How-I-Built-a-Lego-Rack-for-the-Intel-NUCs
