@@ -53,6 +53,9 @@ descriptions:
 
   - cat: linux
     desc: "Posts that are mainly linux related"
+  
+  - cat: virtualization
+    desc: "Posts that are mainly virtualization related"
 
 # Social icons and sharing options
 #
