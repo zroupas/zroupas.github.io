@@ -23,21 +23,20 @@ I didn't have to look around much because I already used oVirt 3.5 (yes I know, 
 From the official site *"oVirt is an open source server and desktop virtualization platform built on operating systems like CentOS and Red Hat Enterprise Linux.It uses KVM hypervisor and is built upon several other community projects, including libvirt, Gluster, PatternFly, and Ansible"*.
 Some of the basic features are:
 
-<ul class="default">
-	<li>Memory overcommit, page sharing and Thin provisioning</li>
-	<li>iSCSI, NFS, FC, Gluster and local storage support</li>
-	<li>Backups, snapshots, live migration and OVF import/export</li>
-	<li>Remote console and Web-based admin & user portals</li>
-	<li>CLI, Rest API, virtual isolated networks and vNIC profiles</li>
+<ul>
+<li>Memory overcommit, page sharing and Thin provisioning</li>
+<li>iSCSI, NFS, FC, Gluster and local storage support</li>
+<li>Backups, snapshots, live migration and OVF import/export</li>
+<li>Remote console and Web-based admin & user portals</li>
+<li>CLI, Rest API, virtual isolated networks and vNIC profiles</li>
 </ul>
 
 <h3>Architecture</h3>
 
 oVirt consists of two main components :
-<ul class="default">
-    <li>**Nodes**: Nodes that are acting as hypervirsors , based on CentOS,RHEL,Fedora that VM's are running on.</li>
-    <li>**Engine**: A machine that coordinates the cluster (like vSphere vCenter). .</li>
-</ul>
+
+* **Nodes**: Machines that are acting as hypervirsors , based on CentOS,RHEL,Fedora that VM's are running on.
+* **Engine**: A machine that coordinates the cluster (like vSphere vCenter).
 
 <a href="/assets/2019-09-01-ovirt/ovirt-architecture.png" data-lightbox="ovirt-architecture" data-title="Check out Intel Nuc 7th Gen">
   <img src="/assets/2019-09-01-ovirt/ovirt-architecture.png" title="Ovirt Architecture">
@@ -91,6 +90,7 @@ Last but not least I have created a new NFS domain export in order to backup my 
   <img src="/assets/2019-09-01-ovirt/nfs_export.png" title="nfs_export">
 </a>
 
+<h3>Final Words</h3>
 Thanks for reading and as Dr Wallace Breen says in Half-Life 2.. Be wise. Be safe. Be aware!
 
 [post]: https://zroupas.github.io/general/2019/08/25/home-lab.html
