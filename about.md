@@ -15,6 +15,12 @@ In my free time I play Bass Guitar and I like to attend live concerts of my favo
 This Blog is based on a great custom theme for Jekyll named Centrarium , made by [Ben Centra][bencentra]. Installation and configuration instructions can be found in the [GitHub repository](https://github.com/bencentra/centrarium).
 You can also find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](http://jekyllrb.com/). And you can find the source code for Jekyll at [github.com/jekyll/jekyll](https://github.com/jekyll/jekyll)
 
+I do not for any reason take credit for either the Header image or the Astronaut used in this Profile Section.Both found around the Internet and I'm using them without any profit because I'm a big fan of Pixel Art.
+If you are the owner please let me know and I will stop using them.
+The Logo was created by me and the potion animation was created in [Piskel][piskel] after following this great free [Tutorial][tutorial]. Also the fire animation in the Astronaut pixel art was made by me again in [Piskel][piskel].
+
 [centrarium]: https://github.com/bencentra/centrarium
 [bencentra]: http://bencentra.com
 [jekyll]: https://github.com/jekyll/jekyll
+[tutorial]: https://www.youtube.com/watch?v=lJN2C7-dyxE
+[Piskel]: https://www.piskelapp.com/
