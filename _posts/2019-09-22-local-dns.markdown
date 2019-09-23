@@ -1,0 +1,233 @@
+---
+layout: post
+title: "Setup your own local DNS"
+date: 2019-09-22 15:32:59
+author: Zois Roupas
+categories: linux
+tags: dns
+cover: "/assets/2019-09-22-dns/dns.png"
+---
+
+### Setup your own local DNS on centOS 7
+
+<hr>
+
+With a latest ( at the time at least.. ) oVirt platform it was time to work on my great ideas so I immediately started creating VM's that would host different services from apache and mysql to ansible and puppet. I started by creating a VM that would host all the apache based test site configurations and everything was great at first but after creating a bunch of virtual hosts I stumbled upon my first problem! 
+I had to edit my local hosts file if I wanted to access these configurations. Knowing me this would be a big problem because I'm continuously working on different machines and I would have to do that in each and every one but the actual nightmare was that.. **I had to maintain those host files**!
+So I stopped everything that I was doing and decided to step back and create my own local DNS server. With a DNS up and running I could create my own zone and update it each time a new host or service is created. The only change that should be done would be the addition of one more dns server in all machines in my homelab. 
+
+### Introduction
+
+DNS (Domain Name System or Domain Name Server) is maybe the most important and fundamental network service used by everyone on the Internet. In fact if a DNS server is down somewhere, anywhere from your local homelab to your provider or your providers provider then bad and strange(r) things are going to happen and you should be as far from them as you can. Unless it is your job to fix them so in that case, "I pity the fool who is going to troubleshoot DNS, I pity the fool!".
+
+In a few words any netwrok device that wants to contact another network device either locally or on the Internet will use an IP address.
+This is where DNS comes into play, resolves an IP address to a hostnme and vice versa making it far easier for us to happily surf the internet by using letters instead of numbers. Think about having to remember IP 216.58.206.174 in order to use google and this would be one of your least problems let me say.
+
+If you need more information on how DNS works there are tons of great documentation and examples out there so just 216.58.206.174 it!
+
+### Choose DNS Setup
+
+There are lot of different DNS server types and based on what I wanted to achieve I configured an Authoritative Caching DNS in order to combine best features of both types.
+
+With an Authoritative server I would be able control my homelab zone in my local network and with a Caching DNS I would be able to speed up local dns resolution of often resolved names by caching those requests.
+
+What I needed was:
+
+- A CentOS7 VM
+- Bind9 dns package
+- FWD Zone Name: homelab.home.zone
+- REV Zone Name: 0.0.10.in-addr.arpa
+
+### Configuration
+
+So I created a new centos 7 VM that would host the DNS service and installed the only two packages that are needed for DNS configuration.
+
+{% highlight shell %}
+yum install bind bind-utils -y
+{% endhighlight %}
+
+By default CentOS installs bind support files in /var/named and the configuraiton file in /etc/named.conf. Below is my named.conf file:
+
+{% highlight bash %}
+acl "trusted" {
+10.0.0.1/24;
+localhost;
+localnets;
+
+options {
+        listen-on port 53 { 127.0.0.1; 10.0.0.1/24;};
+        filter-aaaa-on-v4 yes;
+        directory       "/var/named";
+        dump-file       "/var/named/data/cache_dump.db";
+        statistics-file "/var/named/data/named_stats.txt";
+        memstatistics-file "/var/named/data/named_mem_stats.txt";
+        allow-query     { trusted; };
+        allow-query-cache { trusted; };
+        allow-recursion { trusted; };
+        allow-transfer { none; };
+        forwarders { 8.8.4.4; 8.8.8.8; };
+
+};
+
+        /* Path to ISC DLV key */
+        bindkeys-file "/etc/named.iscdlv.key";
+
+        managed-keys-directory "/var/named/dynamic";
+
+        pid-file "/run/named/named.pid";
+        session-keyfile "/run/named/session.key";
+
+
+logging {
+        channel default_debug {
+                file "data/named.run";
+                severity dynamic;
+        };
+};
+
+zone "." IN {
+        type hint;
+        file "named.ca";
+};
+
+zone "homelab.home" IN {
+       type master;
+       file "homelab.home.zone";
+};
+
+zone "0.0.10.in-addr.arpa" IN {
+       type master;
+       file "0.0.10.in-addr.arpa";
+};
+
+include "/etc/named.rfc1912.zones";
+include "/etc/named.root.key";
+{% endhighlight %}
+
+#### Config File
+
+Let's take a closer look of the config file and provide more specific information on the different sections.
+
+* *acl "trusted"* : In the first step before configuring the Options block I created an access control list (ACL). The IPs listed in the trusted ACL will have the permission to query our DNS. ACLs are a safety measure and must be used in case of a public DNS in order to avoid the possibility of your server being used for malicious purposes, for example in *DNS amplification attack*. 
+* *allow-query,allow-query-cache,allow-recursion* : Those options are limiting query requests and caching to our local network. If a request comes from an IP that is not in our trusted ACL then the client will receive an empty response with RCODE set to REFUSED. To be honest after bind-9.4 there is no need to add the *allow-query-cache* if *allow-recursion* is enabled , unless there is a need for specific cache access to cahce and permission to to send recursive queries to the server.
+* *allow-transfer* : We have only server so I disabled zone transfer.
+* *forwarders* : The forwarders option holds the servers that going to handle any request that cannot be handled or are not cacshed in our DNS. For example if a client in our local network requests to access a ".com" domain then our service will delegate the query to the forwarders list but if client wants to contact a '.home' domain then our service will look in the local zone files for the answer.
+
+#### Zone Files
+
+*Forward Zone : /var/named/homelab.home.zone*
+
+The forward zone file contains records that hold the DNS resource records.It has a default dns cache timeout of 86,400 seconds or 24 hours. It also holds SOA information which specifies the primary authoritative name server for the DNS zone.
+
+{% highlight bash %}
+$TTL    86400
+
+@       IN      SOA     dns.homelab.home. root.homelab.home.    (
+        2019092101
+        3600
+        900
+        604800
+        86400
+)
+;Name Server Information
+@               IN      NS      dns.homelab.home.
+dns             IN      A       10.0.0.1
+nas             IN      A       10.0.0.2
+{% endhighlight %}
+
+*Reverse Zone : /var/named/0.0.10.in-addr.arpa*
+
+The reverse zone returns the fully qualified domain name of a host based on its IP address through a special domain with .in-addr.arpa domain which provides an FQDN for every IP. Reverse lookup is usually used for network troubleshooting.
+
+{% highlight bash %}
+; Authoritative data for 0.0.10.in-addr.arpa  reverse zone
+;
+$TTL 1D
+@   IN SOA  dns.homelab.home. root.homelab.home. (
+        2019092101      ; serial
+        1D              ; refresh
+        1H              ; retry
+        1W              ; expire
+        3H )            ; minimum
+
+@               IN      NS      dns.homelab.home.
+; $ORIGIN 0.0.10.in-addr.arpa.
+1               IN      PTR     dns.homelab.home.
+2               IN      PTR     nas.homelab.home.
+{% endhighlight %}
+
+### Starting DNS Service
+
+After checking our config and zone files I started named service.
+
+{% highlight bash %}
+$ named-checkconf /etc/named.conf
+$ named-checkzone homelab.home /var/named/homelab.home.zone
+zone homelab.home/IN: loaded serial 2019092101
+OK
+$ systemctl start named
+{% endhighlight %}
+
+### Client Configuration
+
+Last step to finally be able to access your local machines is to add the new DNS server to your static/dynamic network config. I'm always using the below configuration in my resolv.conf :
+
+{% highlight bash %}
+search homelab.home 
+nameserver 10.0.0.1
+options timeout:3
+options attempts:2
+{% endhighlight %}
+
+With the search option I can access any local server by typing the hostname instead of having to use the full FQDN. With the timeout and attempts option we save time in case a site is not resolved by the first DNS.
+
+### Let's Test our DNS
+
+Let's try to resolv some external and internal domains by using Google and our DNS.
+
+{% highlight bash %}
+$ for i in {0..10} ; do dig zroupas.github.io @8.8.8.8  | grep 'Query time'; done
+;; Query time: 70 msec
+;; Query time: 150 msec
+;; Query time: 72 msec
+;; Query time: 117 msec
+;; Query time: 62 msec
+;; Query time: 109 msec
+;; Query time: 65 msec
+;; Query time: 132 msec
+;; Query time: 75 msec
+;; Query time: 112 msec
+;; Query time: 84 msec
+{% endhighlight %}
+
+{% highlight bash %}
+$ for i in {0..10} ; do dig zroupas.github.io @10.0.0.1  | grep 'Query time'; done
+;; Query time: 88 msec
+;; Query time: 0 msec
+;; Query time: 0 msec
+;; Query time: 0 msec
+;; Query time: 0 msec
+;; Query time: 0 msec
+;; Query time: 0 msec
+;; Query time: 0 msec
+;; Query time: 0 msec
+;; Query time: 0 msec
+;; Query time: 0 msec
+{% endhighlight %}
+
+As you can see from the dig output when trying to query my awesome blog using Google Open DNS the average repsonse was around 100 msec but when I switched to our local DNS the first response took 88 msec and after that due to caching the response was immediate. Let's try to find the IP of our DNS,
+
+{% highlight bash %}
+$ host dns
+dns.homelab.home has address 10.0.0.1
+{% endhighlight %}
+
+We are now able to access both intrnal and external domains and sail to conquer the world!
+
+### Final Words
+
+Thanks for reading my latest post!
+
+I repeat that those are my personal notes on how I created my own local DNS. If you spot any miconfiguration or mistake in my post please do not hesitate to send me an email and I will proceed with the appropriate corrections. In my next post I will probably configure DNSSEC (don't asky me why do that on a private local DNS!) and a script to reload fwd and rev zones after adding new entries.
+
+Until then and as Dr Wallace Breen says in Half-Life 2.. Be wise. Be safe. Be aware!

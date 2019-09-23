@@ -16,9 +16,9 @@ Before starting this post let me point out that I will not provide any kind of s
 
 <h3>Introduction</h3>
 
-After having decided my homelab setup which documented in full detail in my previous [post][post] and With latest centOS7 server installed, everything was ready to proceed with the next step in mind. **Virtualization!**
+After having decided my homelab setup which is documented in full detail in my previous [post][post] and with latest centOS7 server installed, everything was ready in order to proceed with the next step in mind. **Virtualization!**
 
-I didn't have to look around much because I already used oVirt 3.5 (yes I know, really really old version but did the job) in a production environment and I was very pleased with the stability, performance and Web GUI simplicity that oVirt provides. 
+I didn't have to look around much because I already used oVirt 3.5 (yes I know, really really old version blah blah..but did the job) in a production environment and I was very pleased with the stability, performance and Web GUI simplicity that oVirt provides. 
 
 From the official site *"oVirt is an open source server and desktop virtualization platform built on operating systems like CentOS and Red Hat Enterprise Linux.It uses KVM hypervisor and is built upon several other community projects, including libvirt, Gluster, PatternFly, and Ansible"*.
 Some of the basic features are:
@@ -44,11 +44,11 @@ oVirt consists of two main components :
 
 Due to the fact that I had one machine at my disposal I decided to install both engine and node on the same machine therefore I had to say goodbye to high availability and clustering but who needs those right?? (facepalm)
 
-If you are interested in installing oVirt you have to be aware of the setup that you want to follow and limitations that are coming with it so take a good look at [oVirt Installation Guide][oVirt Installation Guide], [oVirt Self-Hosted Engine Guide][oVirt Self-Hosted Engine Guide] because the initial setup is very important in order to save time.
+If you are interested in installing oVirt you have to be aware of the setup that you want to follow and limitations that are coming with it so take a good look at [oVirt Installation Guide][oVirt Installation Guide] and [oVirt Self-Hosted Engine Guide][oVirt Self-Hosted Engine Guide] because the initial setup is very important in order to save time.
 
 <h3>Accessing oVirt Management Interface</h3>
 
-For those of you that worked with version 3.5 in the past you will notice one major change and instead of the classic Green Color, oVirt now uses a Blue one which gives a fresh breath to the platform from the start!
+For those of you who have worked with version 3.5 in the past you will notice one major change and instead of the classic Green Color, oVirt now uses a Blue one which gives a fresh breath to the platform from the start!
 
 <a href="/assets/2019-09-01-ovirt/login.png" data-lightbox="login" data-title="Check out the Login Page">
   <img src="/assets/2019-09-01-ovirt/login.png" title="login">
