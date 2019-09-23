@@ -115,7 +115,7 @@ Let's take a closer look of the config file and provide more specific informatio
 
 #### Zone Files
 
-*Forward Zone : /var/named/homelab.home.zone*
+**Forward Zone : /var/named/homelab.home.zone**
 
 The forward zone file contains records that hold the DNS resource records.It has a default dns cache timeout of 86,400 seconds or 24 hours. It also holds SOA information which specifies the primary authoritative name server for the DNS zone.
 
@@ -135,7 +135,7 @@ dns             IN      A       10.0.0.1
 nas             IN      A       10.0.0.2
 {% endhighlight %}
 
-*Reverse Zone : /var/named/0.0.10.in-addr.arpa*
+**Reverse Zone : /var/named/0.0.10.in-addr.arpa**
 
 The reverse zone returns the fully qualified domain name of a host based on its IP address through a special domain with .in-addr.arpa domain which provides an FQDN for every IP. Reverse lookup is usually used for network troubleshooting.
 
