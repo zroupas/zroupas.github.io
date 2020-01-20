@@ -9,8 +9,8 @@ exclude:
   - "/vendor/"
 
 # Site settings
-title: Hi! I'm Zois Roupas
-subtitle: "Welcome to my personal Playground!"
+title: Welcome to My Homelab!
+subtitle: "Here you will find my personal notes on all kind of \"Cookbooks\"!"
 email: roupasz@gmail.com
 name: Zois Roupas
 description: >
