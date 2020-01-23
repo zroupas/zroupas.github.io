@@ -39,10 +39,11 @@ Let's now create a Zone Signing public/private key (ZSK) pair for both forward a
 
 {% highlight shell %}
 $ dnssec-keygen -a NSEC3RSASHA1 -b 1024 -n ZONE homelab.home.zone
-Generating key pair..................+++ .............+++
+{% endhighlight %}
+{% highlight shell %}
 $ dnssec-keygen -a NSEC3RSASHA1 -b 1024 -n ZONE 0.0.10.in-addr.arpa
-Generating key pair..................+++ .............+++
-
+{% endhighlight %}
+{% highlight shell %}
 $ ls -la *.{key,private}
 -rw-r--r-- 1 root root  606 Oct 20 Khomelab.home.+007+29081.key
 -rw------- 1 root root 1779 Oct 20 Khomelab.home.+007+29081.private
@@ -54,10 +55,11 @@ Let's move on by creating the Key Signing Key(KSK) pair,
 
 {% highlight shell %}
 $ dnssec-keygen -a NSEC3RSASHA1 -b 1024 -n ZONE -f KSK homelab.home.zone
-Generating key pair..................+++ .............+++
+{% endhighlight %}
+{% highlight shell %}
 $ dnssec-keygen -a NSEC3RSASHA1 -b 1024 -n ZONE -f KSK 0.0.10.in-addr.arpa
-Generating key pair..................+++ .............+++
-
+{% endhighlight %}
+{% highlight shell %}
 $ ls -la *.{key,private}
 -rw-r--r-- 1 root root  605 Oct 20 Khomelab.home.+007+33125.key
 -rw------- 1 root root 1779 Oct 20 Khomelab.home.+007+33125.private
@@ -78,8 +80,16 @@ Finally let's sign the zones by using dnssec-signzone command,
 
 {% highlight shell %}
 # usage example: dnssec-signzone command **OPTIONS** **Zone Name**  **Zone File** **Private Key**
-$ dnssec-signzone -t -g -o homelab.home /var/named/homelab.home.zone /var/named/Khomelab.home.+007+*.private
-$ dnssec-signzone -t -g -o 0.0.10.in-addr.arpa /var/named/0.0.10.in-addr.arpa /var/named/K0.0.10.in-addr.arpa.+007+*.private
+{% endhighlight %}
+{% highlight shell %}
+$ dnssec-signzone -t -g -o homelab.home \
+/var/named/homelab.home.zone \
+/var/named/Khomelab.home.+007+*.private
+{% endhighlight %}
+{% highlight shell %}
+$ dnssec-signzone -t -g -o 0.0.10.in-addr.arpa \
+/var/named/0.0.10.in-addr.arpa \
+/var/named/K0.0.10.in-addr.arpa.+007+*.private
 {% endhighlight %}
 
 As a result of the above commands 2 more files are now present with .signed extension in our default path.
@@ -133,7 +143,6 @@ Now let's query our DNS and check the response. We will use the +rrcomments inst
 
 {% highlight shell %}
 $ dig +rrcomments homelab.home. DNSKEY @localhost
-$ homelab.home.
 {% endhighlight %}
 
 If everything is configured correctly we should receive a reply which looks like:
@@ -199,8 +208,10 @@ systemctl reload $DNSSERVICE
 
 Those scripts need two parameters in order to run successfully,
 
-{% highlight bash %}
+{% highlight shell %}
 # usage example: revzonesign.sh **ZONE** **ZONEFILE**
+{% endhighlight %}
+{% highlight shell %}
 ./fwdzonesign.sh homelab.home /var/named/homelab.home
 ./revzonesign.sh 0.0.10.in-addr.arpa /var/named/0.0.10.in-addr.arpa
 {% endhighlight %}
@@ -228,6 +239,8 @@ Let's run our script and take a look at the output.
 
 {% highlight shell %}
 $ ./fwdzonesign.sh homelab.home /var/named/homelab.home
+{% endhighlight %}
+{% highlight shell %}
 Verifying the zone using the following algorithms: NSEC3RSASHA1.
 Zone fully signed:
 Algorithm: NSEC3RSASHA1: KSKs: 1 active, 0 stand-by, 0 revoked
@@ -242,12 +255,11 @@ Signing time in seconds:                       0.070
 Signatures per second:                      1901.569
 Runtime in seconds:                            0.145
 {% endhighlight %}
-{% highlight shell %}
-$ grep 20190921 /var/named/homelab.home.zone
-$    2019092102
-{% endhighlight %}
+
 {% highlight shell %}
 $ ping nas.homelab.home -c 3
+{% endhighlight %}
+{% highlight shell %}
 PING nas.homelab.home (10.0.0.2) 56(84) bytes of data.
 64 bytes from nas.homelab.home (10.0.0.2): icmp_seq=1 ttl=64 time=3.34 ms
 64 bytes from nas.homelab.home (10.0.0.2): icmp_seq=2 ttl=64 time=3.64 ms
@@ -267,6 +279,8 @@ Also in a production environement a cron should be configured to sign the zones 
 For example if you want to sign your zones every 4 days,then you have to add this lines in your crontab file
 {% highlight bash %}
 $ crontab -e
+{% endhighlight %}
+{% highlight bash %}
 0 0 */4 * *  /usr/sbin/fwdzonesign.sh homelab.home /var/named/homelab.home
 0 0 */4 * *  /usr/sbin/revzonesign.sh 0.0.10.in-addr.arpa /var/named/0.0.10.in-addr.arpa
 {% endhighlight %}

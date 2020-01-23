@@ -40,6 +40,8 @@ There are different ways to become a **Root CA**, if you are a GUI person there 
 First you need to create the Root's private key,
 {% highlight shell %}
 $ openssl genrsa -des3 -out root.key 2048
+{% endhighlight %}
+{% highlight shell %}
 Generating RSA private key, 2048 bit long modulus (2 primes)
 .................................................+++++
 ...................................................................................+++++
@@ -52,6 +54,8 @@ It is highly recommended that you provide a passphrase and secure your private k
 
 {% highlight shell %}
 $ cat root.key 
+{% endhighlight %}
+{% highlight shell %}
 -----BEGIN RSA PRIVATE KEY-----
 Proc-Type: 4,ENCRYPTED
 DEK-Info: DES-EDE3-CBC,1D2E481705C5E3EE
@@ -90,6 +94,8 @@ Our Root CA will be valid for the next 20 years but feel free to adjust to your 
 
 {% highlight shell %}
 $ openssl req -x509 -new -nodes -key root.key -sha256 -days 7200 -out root.pem
+{% endhighlight %}
+{% highlight shell %}
 Enter pass phrase for root.key:
 Can't load /home/user/.rnd into RNG
 140536510013888:error:2406F079:random number generator:RAND_load_file:Cannot open file:../crypto/rand/randfile.c:88:Filename=/home/user/.rnd
@@ -113,6 +119,8 @@ You can check the contents of your Authority's certificate by issuing,
 
 {% highlight shell %}
 $ openssl x509 -text -noout -in  root.pem | head -15
+{% endhighlight %}
+{% highlight shell %}
 Certificate:
     Data:
         Version: 3 (0x2)
@@ -133,7 +141,9 @@ Certificate:
 Also to make sure that this is a CA you can also issue this command,
 {% highlight shell %}
 $ openssl x509 -text -noout -in  root.pem  | grep CA:
-                CA:TRUE
+{% endhighlight %}
+{% highlight shell %}
+CA:TRUE
 {% endhighlight %}
 
 Success!!
@@ -184,7 +194,8 @@ So let's create our private key,
 
 {% highlight shell %}
 $ openssl genrsa -out wildcard.homelab.home.key 2048
-
+{% endhighlight %}
+{% highlight shell %}
 Generating RSA private key, 2048 bit long modulus (2 primes)
 ......+++++
 ..+++++
@@ -195,6 +206,8 @@ Then we will create the certificate request by using the config file found below
 
 {% highlight shell %}
 $ cat opensslsan.cnf
+{% endhighlight %}
+{% highlight shell %}
 [req]
 distinguished_name = req_distinguished_name
 req_extensions = v3_req
@@ -237,7 +250,7 @@ drwxrwxr-x 3 user user 4096 Dec   4 16:01 ../
 Now instead of sending the csr to a legitimate certificate authority so as to sign it with its private key, we will sign it with our own!I hope you remember the password that you have picked for your Root CA's private key because the next command will ask you to enter it! If not don't worry, just delete everything and restart the process and this time keep a note! :) 
 
 {% highlight shell %}
-openssl x509 -req -in wildcard.homelab.home.csr \
+$ openssl x509 -req -in wildcard.homelab.home.csr \
 -CA root.pem \
 -CAkey root.key \
 -CAcreateserial \
@@ -273,6 +286,8 @@ Let's verify that the certificate is correct and the chain is trusted,
 
 {% highlight shell %}
 $ openssl verify -CAfile root.pem wildcard.homelab.home.crt
+{% endhighlight %}
+{% highlight shell %}
 wildcard.homelab.home.crt: OK
 {% endhighlight %}
 
@@ -280,6 +295,8 @@ Nice! Let's take a look at our Wildcard Certificate,
 
 {% highlight shell %}
 $ openssl x509 -text -noout -in  wildcard.homelab.home.crt  | head -15
+{% endhighlight %}
+{% highlight shell %}
 Certificate:
     Data:
         Version: 3 (0x2)
@@ -299,6 +316,8 @@ Certificate:
 
 {% highlight shell %}
 $ openssl x509 -text -noout -in  wildcard.homelab.home.crt | grep DNS
+{% endhighlight %}
+{% highlight shell %}
 DNS:*.homelab.home 
 {% endhighlight %}
 

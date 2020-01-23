@@ -43,7 +43,7 @@ What I needed was:
 So I created a new centos 7 VM that would host the DNS service and installed the only two packages that are needed for DNS configuration.
 
 {% highlight shell %}
-yum install bind bind-utils -y
+$ yum install bind bind-utils -y
 {% endhighlight %}
 
 By default CentOS installs bind support files in /var/named and the configuraiton file in /etc/named.conf. Below is my named.conf file:
@@ -163,8 +163,12 @@ After checking our config and zone files I started named service.
 {% highlight bash %}
 $ named-checkconf /etc/named.conf
 $ named-checkzone homelab.home /var/named/homelab.home.zone
+{% endhighlight %}
+{% highlight bash %}
 zone homelab.home/IN: loaded serial 2019092101
 OK
+{% endhighlight %}
+{% highlight bash %}
 $ systemctl start named
 {% endhighlight %}
 
@@ -187,6 +191,8 @@ Let's try to resolv some external and internal domains by using Google and our D
 
 {% highlight bash %}
 $ for i in {0..10} ; do dig zroupas.github.io @8.8.8.8  | grep 'Query time'; done
+{% endhighlight %}
+{% highlight bash %}
 ;; Query time: 70 msec
 ;; Query time: 150 msec
 ;; Query time: 72 msec
@@ -201,7 +207,9 @@ $ for i in {0..10} ; do dig zroupas.github.io @8.8.8.8  | grep 'Query time'; don
 {% endhighlight %}
 
 {% highlight bash %}
-$ for i in {0..10} ; do dig zroupas.github.io @10.0.0.1  | grep 'Query time'; done
+$ for i in {0..10} ; do dig myhomelab.gr @10.0.0.1  | grep 'Query time'; done
+{% endhighlight %}
+{% highlight bash %}
 ;; Query time: 88 msec
 ;; Query time: 0 msec
 ;; Query time: 0 msec
@@ -219,6 +227,8 @@ As you can see from the dig output when trying to query my awesome blog using Go
 
 {% highlight bash %}
 $ host dns
+{% endhighlight %}
+{% highlight bash %}
 dns.homelab.home has address 10.0.0.1
 {% endhighlight %}
 
