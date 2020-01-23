@@ -215,7 +215,9 @@ DNS.1 = *.homelab.home
 {% endhighlight %}
 
 {% highlight shell %}
-$ openssl req -new -out wildcard.homelan.prv.csr -key wildcard.homelan.prv.key -config opensslsan.cnf
+openssl req -new -out wildcard.homelab.home.csr \
+-key wildcard.homelab.home.key \
+-config opensslsan.cnf
 {% endhighlight %}
 
 After the previous command 2 more files are added to our folder, the request (csr) and private key (key) for our self signed certificate.
@@ -235,7 +237,15 @@ drwxrwxr-x 3 user user 4096 Dec   4 16:01 ../
 Now instead of sending the csr to a legitimate certificate authority so as to sign it with its private key, we will sign it with our own!I hope you remember the password that you have picked for your Root CA's private key because the next command will ask you to enter it! If not don't worry, just delete everything and restart the process and this time keep a note! :) 
 
 {% highlight shell %}
-openssl x509 -req -in wildcard.homelab.home.csr -CA root.pem -CAkey root.key -CAcreateserial -out wildcard.homelab.home.crt -days 7200 -sha256 -extensions v3_req -extfile opensslsan.cnf
+openssl x509 -req -in wildcard.homelab.home.csr \
+-CA root.pem \
+-CAkey root.key \
+-CAcreateserial \
+-out wildcard.homelab.home.crt \
+-days 7200 \
+-sha256 \
+-extensions v3_req \
+-extfile opensslsan.cnf
 Signature ok
 subject=C = GR, ST = Attica, L = Athens, O = Wildcard Homelab Inc, OU = IT, CN = *.homelab.home
 Getting CA Private Key
