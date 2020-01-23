@@ -247,6 +247,8 @@ openssl x509 -req -in wildcard.homelab.home.csr \
 -extensions v3_req \
 -extfile opensslsan.cnf
 Signature ok
+{% endhighlight %}
+{% highlight shell %}
 subject=C = GR, ST = Attica, L = Athens, O = Wildcard Homelab Inc, OU = IT, CN = *.homelab.home
 Getting CA Private Key
 Enter pass phrase for root.key:
