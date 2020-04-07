@@ -18,6 +18,6 @@ I'm going to close this first post by adding a computer geek joke:
 
 _A programmer’s wife tells him, “While you’re at the grocery store, buy some eggs.” He never comes back!_
 
-Stay tuned..
+Stay tuned.. :neckbeard:
 
 [here]: <https://roupasz.github.io>
