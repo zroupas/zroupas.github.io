@@ -213,11 +213,11 @@ ok: [hl-ovirt.homelab.prv] => {
         "results": [
             {
                 "_ansible_ignore_errors": null, 
-                "_ansible_item_label": "hm-ansible-01", 
+                "_ansible_item_label": "hl-dns", 
                 "_ansible_item_result": true, 
                 "_ansible_no_log": false, 
                 "ansible_facts": {
-                    "vm": "hm-ansible-01: Active VM"
+                    "vm": "hl-dns: Active VM"
                 }, 
                 "changed": false, 
                 "failed": false, 
