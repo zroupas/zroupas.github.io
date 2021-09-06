@@ -93,15 +93,17 @@ Time for a drawing and more information 😅!
 
 In the above picture we see what we have already configured: 
  - **oVirt Host** : inside of which I create VM's, based on a template because i don't want to configure users, packages, ssh keys etc, by following more or less these [steps][vm-step-by-step]. So you understand, or you'll see on your own when creating more virtual machines, that those are a lot of clicks, especially if you intend to keep your services separated and in different machines.
-    - *hostname*: **hl-ovirt.homelab.prv**
-    - *IP*: **10.0.0.2**
+    - *hostname*: **hl-ovirt**
+    - *DNS*: **ovirt.homelab.home**
+    - *IP*: **10.0.0.3**
  - **Ansible VM** : This is a virtual machine, created in our oVirt infrastructure and which hosts all the ansible related configuration/files.
-    - *hostname*: **hl-ansible.homelab.prv**
+    - *hostname*: **hl-ansible**
+    - *DNS*: **ansible.homelab.home**
     - *IP*: **10.0.0.10**
 
 and what we want to achieve:
 
-- our goal here is to be able to run a playbook from the **hl-ansible.homelab.prv** which will call the **REST-API** provided by the **oVirt host** that will instruct the host to create a new machine with the **Name** & **IP** of our choosing by using the already configured **cloud-init template** hosted on our oVirt host. 
+- our goal here is to be able to run a playbook from the **ansible.homelab.home** which will call the **REST-API** provided by the **oVirt host** that will instruct the host to create a new machine with the **Name** & **IP** of our choosing by using the already configured **cloud-init template** hosted on our oVirt host. 
 
 Confusing 😕? Nahhhh you, you'll be alright, everything is going to be fine!
 
@@ -121,8 +123,8 @@ I guess that you have a working ansible vm at this point and maybe another host 
 
 Let's try and ping our oVirt host and confirm that we have connectivity:
 {% highlight bash %}
-:~$ ansible hl-ovirt.homelab.prv -m ping'
-hl-ovirt.homelab.prv | SUCCESS => {
+:~$ ansible ovirt.homelab.home -m ping'
+ovirt.homelab.home | SUCCESS => {
     "changed": false, 
     "ping": "pong"
 }
@@ -130,15 +132,15 @@ hl-ovirt.homelab.prv | SUCCESS => {
 
 Ok, we can connect to our host! Let's check it's hostname:
 {% highlight bash %}
-:~$ ansible hl-ovirt.homelab.prv -m shell -a 'echo $HOSTNAME'
-hl-ovirt.homelab.prv | SUCCESS | rc=0 >>
+:~$ ansible ovirt.homelab.home -m shell -a 'echo $HOSTNAME'
+ovirt.homelab.home | SUCCESS | rc=0 >>
 hl-ovirt
 {% endhighlight %}
 
 ohh nice! Let's get the uptime of our host:
 {% highlight bash %}
-ansible hl-ovirt.homelab.prv -m shell -a uptime 
-hl-ovirt.homelab.prv | SUCCESS | rc=0 >>
+ansible ovirt.homelab.home -m shell -a uptime 
+ovirt.homelab.home | SUCCESS | rc=0 >>
  14:18:13 up 8 days, 21:31,  2 users,  load average: 0.10, 0.09, 0.11
 {% endhighlight %}
 
@@ -158,13 +160,13 @@ Start by adding below yaml code to a .yml file. I'm doing it with the use of EOF
 {% raw %}
 :~$ cat <<EOF > ovirt_list_vms.yml
 ---
-- hosts: hl-ovirt.homelab.prv
+- hosts: ovirt.homelab.home
   connection: local
 
   tasks:
   - name: Obtain SSO token
     ovirt_auth:
-      url: https://hl-ovirt.homelab.prv/ovirt-engine/api
+      url: https://ovirt.homelab.home/ovirt-engine/api
       username: admin@internal
       password: "<add your password here>"
 
@@ -198,7 +200,7 @@ Ok, don't jump off the window yet, please 😆! If this is the first time that y
 
 Let's have a look on each section of the playbook. Keep in mind that I'm not an expert and you **must not take the next steps break down as a granted**, this is my personal notes and understanding of the playbook that we've just created:
 
- - The first section is the *host* which tells our playbook which is the target host (or group of hosts in other cases) that the playbook is going to be executed on. In our case the oVirt host of our infrastructure (**hl-ovirt.homelab.prv**) which provides the **REST-API**.
+ - The first section is the *host* which tells our playbook which is the target host (or group of hosts in other cases) that the playbook is going to be executed on. In our case the oVirt host of our infrastructure (**ovirt.homelab.home**) which provides the **REST-API**.
  - Next we have the *tasks* section and the first *play* where we are using **ovirt_vms_facts module** to retrieve the description of all vm's currently deployed in our home-lab infrastructure. We could always also use a pattern instead of the a nested_attribute, for example :
 ```
 ovirt_vms_facts:
@@ -207,7 +209,7 @@ ovirt_vms_facts:
 - Then we use the **set_fact module** which allows us to dynamically add or change facts during execution. In our case we want to output a list of vm names and their snapshot description, filter ```(|)``` by description separated by comma for multiple snapshots (if there are any..) while looping though the active virtual machines. Then we register the output to **all_vms** *variable* so as to be filtered in the next play. Again this is just an example and you can create your own list columns with the help of a little **JSON PATH** magic!<br>We then apply another filter to the previous **all_vms** variable with the use of map that just allows us to change every item in a list, using the ‘*attribute*’ keyword and do the transformation based on attributes of the list elements and assign the list to a new *variable* called **vms**.<br>To better understand what would be the output at this exact point, you can remove the **"make a list"** play and in **"print vms"** one replace **vms** variable with the **all_vms**. In that way you can test different tasks and figure out on your own what would be the outcome of each one if run separetly.<br>This would be the output in such case (do you see the all_vms.result that we are using in the *"make a list"* task?) :
 {% highlight yml %}
 {% raw %}
-ok: [hl-ovirt.homelab.prv] => {
+ok: [ovirt.homelab.home] => {
     "all_vms": {
         "changed": false, 
         "msg": "All items completed", 
@@ -250,26 +252,26 @@ Open a terminal, head to the folder that you have saved our .yml file and run th
 $ ansible-playbook ovirt_list_vms.yml 
 ```
 ```
-PLAY [hl-ovirt.homelab.prv] **********************************************************************************************************************************
+PLAY [ovirt.homelab.home] **********************************************************************************************************************************
 
 TASK [Gathering Facts] **********************************************************************************************************************************
-ok: [hl-ovirt.homelab.prv]
+ok: [ovirt.homelab.home]
 
 TASK [Obtain SSO token] *********************************************************************************************************************************
-ok: [hl-ovirt.homelab.prv]
+ok: [ovirt.homelab.home]
 
 TASK [List vms] *****************************************************************************************************************************************
-ok: [hl-ovirt.homelab.prv]
+ok: [ovirt.homelab.home]
 
 TASK [set vms] ******************************************************************************************************************************************
-ok: [hl-ovirt.homelab.prv] => (item=hl-ansible)
-ok: [hl-ovirt.homelab.prv] => (item=hl-dns)
+ok: [ovirt.homelab.home] => (item=hl-ansible)
+ok: [ovirt.homelab.home] => (item=hl-dns)
 
 TASK [make a list] **************************************************************************************************************************************
-ok: [hl-ovirt.homelab.prv]
+ok: [ovirt.homelab.home]
 
 TASK [Print vms] ****************************************************************************************************************************************
-ok: [hl-ovirt.homelab.prv] => {
+ok: [ovirt.homelab.home] => {
     "vms": [
         "hl-ansible: Active VM, before_ansible_setup", 
         "hl-dns: Active VM"
@@ -277,7 +279,7 @@ ok: [hl-ovirt.homelab.prv] => {
 }
 
 PLAY RECAP **********************************************************************************************************************************************
-hl-ovirt.homelab.prv           : ok=6    changed=0    unreachable=0    failed=0   
+ovirt.homelab.home           : ok=6    changed=0    unreachable=0    failed=0   
 ```
 
 Success!!
