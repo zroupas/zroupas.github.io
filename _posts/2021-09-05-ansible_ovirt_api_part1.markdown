@@ -47,11 +47,12 @@ Ansible is an **agentless tool** that runs in a ‘push’ model, temporarily co
 And the best part is that oVirt has everything ready for us as it is already maintaining multiple [Ansible roles][ovirt-ansible-roles]! Head to the official [site][official-ansible] so as to get started with Ansible in case you haven't done so already!
 
 #### Say to hello to my little Cloud-Init friend (with the voice of Toni Montana) !
-Red Hat's official documentation has a great explanation regarding cloud-init and I think that I shouldn't interfere thus I quote:<br>"`cloud-init` is a software package that automates the initialization of cloud instances during system boot. You can configure `cloud-init` to perform a variety of tasks. Some sample tasks that `cloud-init` can perform include:
--   Configuring a host name
--   Installing packages on an instance
--   Running scripts
--   Suppressing default virtual machine behaviour"
+Red Hat's official documentation has a great explanation regarding cloud-init and I think that I shouldn't interfere thus I quote:<br>
+> "`cloud-init` is a software package that automates the initialization of cloud instances during system boot. You can configure `cloud-init` to perform a variety of tasks. Some sample tasks that `cloud-init` can perform include:
+> -   Configuring a host name
+> -   Installing packages on an instance
+> -   Running scripts
+> -   Suppressing default virtual machine behaviour"
 
 As you can understand there are many different scenarios that **cloud-init** could come in quite handy.<br>We will use this software to apply our own custom setup (*Static IP/Subnet/Resolv/DNS/Domain* etc) for each and every vm that we create.
 
