@@ -120,7 +120,7 @@ After the installation is finished you will be able to either connect to your VM
 
 Congratulations, your first VM is now a reality! 🎉
 
-### Cleanup and Export your VM as a Template 🧹
+### Cleanup and Export your VM as a Template 🚿
 
 Templates can save us a huge amount of time in cases where we need to deploy a large number of similar VM's, especially in a corporate environemt, but they are nothing more than a **pre-installed/configured** virtual machine with it's own OS and resources.
 
