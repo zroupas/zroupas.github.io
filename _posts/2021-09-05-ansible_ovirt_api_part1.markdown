@@ -201,7 +201,8 @@ Ok, don't jump off the window yet, please 😆! If this is the first time that y
 Let's have a look on each section of the playbook. Keep in mind that I'm not an expert and you **must not take the next steps break down as a granted**, this is my personal notes and understanding of the playbook that we've just created:
 
  - The first section is the *host* which tells our playbook which is the target host (or group of hosts in other cases) that the playbook is going to be executed on. In our case the oVirt host of our infrastructure (**ovirt.homelab.home**) which provides the **REST-API**.
- - Next we have the *tasks* section and the first *play* where we are using **ovirt_vms_facts module** to retrieve the description of all vm's currently deployed in our home-lab infrastructure. We could always also use a pattern instead of the a nested_attribute, for example :
+ - Next we have the *tasks* section and the first *play* where we are using the **ovirt_auth** module to authenticate to oVirt engine and create an SSO token which will be used in the next play.
+ - In the second play we are using **ovirt_vms_facts module** to retrieve the description of all vm's currently deployed in our home-lab infrastructure by using the SSO token created in the previous task. We could always also use a pattern instead of the a nested_attribute, for example :
 ```
 ovirt_vms_facts:
     pattern: name=centos* and cluster=<our_cluster_name>
