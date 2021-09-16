@@ -61,7 +61,7 @@ As you can understand there are many different scenarios that **cloud-init** cou
 In order to be able to understand and test the concept we will need the below setup/configurations available:
  - Our [**oVirt infrastructure**][ovirt_installation] with a correctly configured [SSL][ovirt_ssl] certificate (self signed or official one). You can always bypass the SSL configuration but you will need to adapt accordingly the commands that are used during the post as I'm using a secure connection, playbook wise.
  - a **CentOS 7 virtual machine** ( hopefully the last machine that you will have to install and configure manually 🙏 ) that has ansible package installed and configured.<br>This vm will host our yaml configuration files and eventually execute the playbooks that will create the new vm's to our oVirt host. Check out this great [post][install-ansible-centos7] if you haven't configured one yet.
-- a **Centos7 template with cloud-init** software configured. Again you can find lots of great posts regarding this concept of creating your own cloud-init ready CentOS ISO image or install and update your oVirt template. You can combine cloud-init configuration posts with my previous article on how to create your [own template][ovirt_config_2]!
+- a **Centos7 template with cloud-init** software configured. Again you can find lots of great posts regarding this concept of creating your own cloud-init ready CentOS ISO image or install and update your oVirt template. You can combine for example this cloud-init configuration [post][cloud-init-setup] with my previous article on how to create your [own template][ovirt_config_2]!
 - In case you haven't come across yet to one of my previous posts (for example on how to [backup your oVirt vm's][ovirt-backup]) , and even if it's not a prerequisite for this post , it's good to have **Python SDK** installed for the **oVirt Engine API** which is the collection of classes that will allows us to interact and run our oVirt system tasks.
 **For EL distros (such as CentOS, RHEL, etc.):**
 {% highlight shell %}
@@ -319,3 +319,4 @@ Thanks for reading, until the next post and as Dr Wallace Breen says in Half-Lif
 [install-ansible-centos7]: https://www.snel.com/support/how-to-install-ansible-on-centos-7/
 [vm-step-by-step]: https://www.linuxtechi.com/create-virtual-machines-ovirt-4-environment/
 [python-sdk]: http://ftp.iij.ad.jp/pub/linux/centos-vault/7.8.2003/virt/Source/ovirt-4.2/
+[cloud-init-setup]: https://www.ibm.com/docs/en/powervc-cloud/2.0?topic=linux-installing-configuring-cloud-init-rhel
