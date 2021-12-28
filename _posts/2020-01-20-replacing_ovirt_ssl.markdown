@@ -131,7 +131,7 @@ $ update-ca-trust
 4.The Engine is configured to use /etc/pki/ovirt-engine/apache-ca.pem, which is symbolically linked to /etc/pki/ovirt-engine/ca.pem. Let's remove the symbolic link and save our certificate as apache-ca.pem to the appropriate path (we can either backup the apache-ca.pem or create a new symlink in case we need to rollback).
 {% highlight shell %}
 $ rm /etc/pki/ovirt-engine/apache-ca.pem
-$ cp /tmp/wildcard.homelab.home.cer /etc/pki/ovirt-engine/apache-ca.pem
+$ cp /tmp/root.pem /etc/pki/ovirt-engine/apache-ca.pem
 {% endhighlight %}
 5.Backup the existing private key and certificate in case you need to rollback
 {% highlight shell %}
