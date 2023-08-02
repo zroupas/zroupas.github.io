@@ -232,7 +232,7 @@ What I did was to open the relevant file,
 {% highlight shell %}
 vi /etc/ovirt-engine/engine.conf.d/12-setup-keycloak.conf
 {% endhighlight %}
-and make the following changes, the same done in later step for `99-custom-truststore.conf`
+and make the following changes, the same done in previous step for `99-custom-truststore.conf`
 {% highlight bash %}
 EXTERNAL_OIDC_HTTPS_PKI_TRUST_STORE="/etc/pki/java/cacerts"
 EXTERNAL_OIDC_HTTPS_PKI_TRUST_STORE_PASSWORD=""
