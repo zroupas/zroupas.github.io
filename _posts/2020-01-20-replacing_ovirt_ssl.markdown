@@ -9,37 +9,9 @@ cover: "/assets/2020-01-20-ovirt_ssl/ovirt.png"
 ---
 
 ### Homelab - Replace oVirt Engine SSL/TLS Certificate with a third-party CA certificate
+<hr>
 
-#### **UPDATED 02.Aug.2023** : PKIX issue while trying to use ovirtsdk4 ansible playbook in oVirt 4.5.
-
-Following my (awesome I would add but I will try to be humble for just this time) guide , I replaced engine's SSL with my private one in a fresh oVirt 4.5 installation and everything went smoothly!
-
-But then I tried to run a handy [ansible role](https://github.com/oVirt/ovirt-ansible-shutdown-env) which I've been using in all my oVirt installations to safely shutdown the host and came across with something new:
-
-{% highlight shell %}
-An exception occurred during task execution. To see the full traceback, use -vvv. The error was: ovirtsdk4.AuthError: Error during SSO authentication access_denied : Cannot authenticate user PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target.
-fatal: [localhost]: FAILED! => {"changed": false, "msg": "Error during SSO authentication access_denied : Cannot authenticate user PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target."}
-{% endhighlight %}
-
-As there aren't many informations regarding the PKIX error specifically to oVirt 4.5 and as this wasn't encountered in previous versions, long story short , I came to the conclusion that this is probably related to the new Keycloak login that has been added as default SSO auth from version 4.5.1.
-
-The error was clear and related to SSO so after searching around the config files I saw that there is another `PKI_TRUST_STORE`!
-
-What I did was to open the relevant file,
-{% highlight shell %} 
-vi /etc/ovirt-engine/engine.conf.d/12-setup-keycloak.conf
-{% endhighlight %}
-and make the following changes, the same done in later step for `99-custom-truststore.conf`
-{% highlight bash %}
-EXTERNAL_OIDC_HTTPS_PKI_TRUST_STORE="/etc/pki/java/cacerts"
-EXTERNAL_OIDC_HTTPS_PKI_TRUST_STORE_PASSWORD=""
-{% endhighlight %}
-
-{% highlight shell %}
-$ systemctl restart ovirt-engine.service
-{% endhighlight %}
-
-After restarting ovirt-engine service, the error was not encountered anymore and the ansible role did what it was supposed to do! 🎉
+**_NOTE:_** : Find updated notes and configuration on SSO Keycloak changes after oVirt v4.5.1 which caused ovirtsdk4 to fail after engine's CA replacement, at the end of the article.
 
 <hr>
 
@@ -237,6 +209,40 @@ One more important note is that the trust chain in the third-party CA (in our ex
 From this point on I will be able to use my wildcard certificate in any of the new projects that I have in mind and I will have the chance to also document the installation to either Apache or Nginx web servers. So stay tuned and I promise I will try to document every new step regardless the outcome!
 
 Until my next post and as Dr Wallace Breen says in Half-Life 2.. Be wise. Be safe. Be aware!
+
+<hr>
+
+#### PKIX issue while trying to use ovirtsdk4 ansible playbook in oVirt 4.5.
+##### Article first created on Jan 20, 2020. Updated on Aug 2, 2023
+
+Following my (awesome I would add but I will try to be humble for just this time) guide , I replaced engine's SSL with my private one in a fresh oVirt 4.5 installation and everything went smoothly!
+
+But then I tried to run a handy [ansible role](https://github.com/oVirt/ovirt-ansible-shutdown-env) which I've been using in all my oVirt installations to safely shutdown the host and came across with something new:
+
+{% highlight shell %}
+An exception occurred during task execution. To see the full traceback, use -vvv. The error was: ovirtsdk4.AuthError: Error during SSO authentication access_denied : Cannot authenticate user PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target.
+fatal: [localhost]: FAILED! => {"changed": false, "msg": "Error during SSO authentication access_denied : Cannot authenticate user PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target."}
+{% endhighlight %}
+
+As there aren't many informations regarding the PKIX error specifically to oVirt 4.5 and as this wasn't encountered in previous versions, long story short , I came to the conclusion that this is probably related to the new Keycloak login that has been added as default SSO auth from version 4.5.1.
+
+The error was clear and related to SSO so after searching around the config files I saw that there is another `PKI_TRUST_STORE`!
+
+What I did was to open the relevant file,
+{% highlight shell %}
+vi /etc/ovirt-engine/engine.conf.d/12-setup-keycloak.conf
+{% endhighlight %}
+and make the following changes, the same done in later step for `99-custom-truststore.conf`
+{% highlight bash %}
+EXTERNAL_OIDC_HTTPS_PKI_TRUST_STORE="/etc/pki/java/cacerts"
+EXTERNAL_OIDC_HTTPS_PKI_TRUST_STORE_PASSWORD=""
+{% endhighlight %}
+
+{% highlight shell %}
+$ systemctl restart ovirt-engine.service
+{% endhighlight %}
+
+After restarting ovirt-engine service, the error was not encountered anymore and the ansible role did what it was supposed to do! 🎉
 
 [tutorial]: https://www.ovirt.org/documentation/admin-guide/appe-oVirt_and_SSL.html
 [ca]: https://zroupas.github.io/linux/2019/12/13/local-ca-setup.html
