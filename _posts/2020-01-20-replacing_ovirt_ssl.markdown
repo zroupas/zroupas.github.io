@@ -10,6 +10,41 @@ cover: "/assets/2020-01-20-ovirt_ssl/ovirt.png"
 
 ### Homelab - Replace oVirt Engine SSL/TLS Certificate with a third-party CA certificate
 
+date: `r paste("First created on Oct 01, 2018. Updated on", Sys.Date())`
+
+date: "Updated on `r format(Sys.time(), '%d %B, %Y')`"
+
+#### **UPDATED** : PKIX issue while trying to use ovirtsdk4 ansible playbook in oVirt 4.5.
+
+Following my (awesome I would add but I will try to be humble for just this time) guide , I replaced engine's SSL with my private one in a fresh oVirt 4.5 installation and everything went smoothly!
+
+But then I tried to run a handy [ansible role](https://github.com/oVirt/ovirt-ansible-shutdown-env) which I've been using in all my oVirt installations to safely shutdown the host and came across with something new:
+
+{% highlight shell %}
+An exception occurred during task execution. To see the full traceback, use -vvv. The error was: ovirtsdk4.AuthError: Error during SSO authentication access_denied : Cannot authenticate user PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target.
+fatal: [localhost]: FAILED! => {"changed": false, "msg": "Error during SSO authentication access_denied : Cannot authenticate user PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target."}
+{% endhighlight %}
+
+As there aren't many informations regarding the PKIX error specifically to oVirt 4.5 and as this wasn't encountered in previous versions, long story short , I came to the conclusion that this is probably related to the new Keycloak login that has been added as default SSO auth from version 4.5.1.
+
+The error was clear and related to SSO so after searching around the config files I saw that there is another `PKI_TRUST_STORE`!
+
+What I did was to open the relevant file,
+{% highlight shell %} 
+vi /etc/ovirt-engine/engine.conf.d/12-setup-keycloak.conf
+{% endhighlight %}
+and make the following changes, the same done in later step for `99-custom-truststore.conf`
+{% highlight bash %}
+EXTERNAL_OIDC_HTTPS_PKI_TRUST_STORE="/etc/pki/java/cacerts"
+EXTERNAL_OIDC_HTTPS_PKI_TRUST_STORE_PASSWORD=""
+{% endhighlight %}
+
+{% highlight shell %}
+$ systemctl restart ovirt-engine.service
+{% endhighlight %}
+
+After restarting ovirt-engine service, the error was not encountered anymore and the ansible role did what it was supposed to do! 🎉
+
 <hr>
 
 As promised in my previous post, now that we had our own CA and self-signed wildcard certificate it was time to get rid of the uggly https security warning by configuring oVirt Engine to use the newly issued certificate instead of the one that is preconfigured.
