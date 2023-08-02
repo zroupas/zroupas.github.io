@@ -10,11 +10,7 @@ cover: "/assets/2020-01-20-ovirt_ssl/ovirt.png"
 
 ### Homelab - Replace oVirt Engine SSL/TLS Certificate with a third-party CA certificate
 
-date: `r paste("First created on Oct 01, 2018. Updated on", Sys.Date())`
-
-date: "Updated on `r format(Sys.time(), '%d %B, %Y')`"
-
-#### **UPDATED** : PKIX issue while trying to use ovirtsdk4 ansible playbook in oVirt 4.5.
+#### **UPDATED 02.Aug.2023** : PKIX issue while trying to use ovirtsdk4 ansible playbook in oVirt 4.5.
 
 Following my (awesome I would add but I will try to be humble for just this time) guide , I replaced engine's SSL with my private one in a fresh oVirt 4.5 installation and everything went smoothly!
 
