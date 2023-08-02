@@ -226,7 +226,7 @@ fatal: [localhost]: FAILED! => {"changed": false, "msg": "Error during SSO authe
 
 As there aren't many informations regarding the PKIX error specifically to oVirt 4.5 and as this wasn't encountered in previous versions, long story short , I came to the conclusion that this is probably related to the new Keycloak login that has been added as default SSO auth from version 4.5.1.
 
-The error was clear and related to SSO so after searching around the config files I saw that there is another `PKI_TRUST_STORE`!
+The error was clear and related to SSO so after searching around the config files I saw that there is another `PKI_TRUST_STORE` variable!
 
 What I did was to open the relevant file,
 {% highlight shell %}
