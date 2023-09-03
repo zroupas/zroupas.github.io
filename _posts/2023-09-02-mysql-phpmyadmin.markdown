@@ -191,7 +191,7 @@ Let me point out that every configuration described in this article, can be pack
 
 Thanks for reading, until the next post and as Dr Wallace Breen says in Half-Life 2.. <br>Be wise. Be safe. Be aware!
 
-[ovirt manager api article]: https://myhomelab.gr/linux/virtualization/automation/2021/09/05/ansible_ovirt_api_part1.html
+[ovirt manager api article]:(https://myhomelab.gr/linux/virtualization/automation/2021/09/05/ansible_ovirt_api_part1.html){:target="_blank"}
 [docker starting page]: https://docs.docker.com/get-started/
 [docker networking]: https://docs.docker.com/network/
 [mariadb official]: https://hub.docker.com/_/mariadb
