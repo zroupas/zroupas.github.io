@@ -1,13 +1,13 @@
 ---
 layout: post
-title: "Track your personal tasks with the help of a Kanboard Container!"
+title: "Track your personal tasks with the help of Docker and Kanboard!"
 date: 2023-10-02 22:32:59
 author: Zois Roupas
 categories: docker
-tags: docker containers images nginx proxy kanboard
+tags: docker containers images nginx-proxy reverse-proxy proxy kanboard
 cover: "/assets/2023-10_kanboard-nginx/header.png"
 ---
-### Track your personal tasks by using Kanboard and Nginx-Proxy docker images.
+### Track your personal tasks by using Kanboard and Nginx-Proxy docker containers.
 
 <hr>
 
