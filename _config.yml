@@ -1,6 +1,6 @@
 # External gems
 # See http://ixti.net/software/2013/01/28/using-jekyll-plugins-on-github-pages.html for making `jekyll archives` work.
-plugins:
+gems:
   - jekyll-archives # Sorry, not GitHub pages friendly!
   - jekyll-sitemap
   - jekyll-paginate
@@ -29,6 +29,8 @@ paginate: 5
 paginate_path: "/page:num/"
 inter_post_navigation: false
 highlightjs_theme: "monokai-sublime"
+  #plugins:
+  #- jemoji
 
 # Archive settings (see https://github.com/jekyll/jekyll-archives/)
 jekyll-archives:
@@ -44,8 +46,7 @@ jekyll-archives:
 # disqus_shortname: bencentra
 
 # Google analytics
-ga_tracking_id: "UA-156563780-1"
-ga4_tracking_id: "G-0Y92TW65N9"
+ga_tracking_id: "UA-145087667-1"
 
 # Category descriptions (for archive pages)
 descriptions:
@@ -90,23 +91,23 @@ social:
 
   - name: Instagram
     icon: instagram
-    username: paparoup
+    username: paparoup_
     url: https://www.instagram.com/paparoup_/?hl=en
     desc: Follow me on Instagram
     share: false
 
   - name: Steam
     icon: steam
-    username:
-    url:
+    username: paparoup
+    url: https://store.steampowered.com/
     desc: Friend me on Steam
     share: false
 
-  - name: Reddit
-    icon: reddit
-    username:
-    url:
-    desc: Share to Reddit
+  - name: mixcloud
+    icon: mixcloud
+    username: paparoup
+    url: https://www.mixcloud.com/paparoup/
+    desc: Checkout my radio show!
     share: true
 
 
