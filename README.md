@@ -17,6 +17,12 @@ Inspired by dirkfabisch's [Mediator](https://github.com/dirkfabisch/mediator) th
 
 Cover image by Chris M. Morris ([flickr][cover]).
 
+## Custom domains and GitHub Pages configuration
+
+At the moment this repo is accessible publicly via https://myhomelab.gr.
+
+In order to configure this, follow the steps found in [this](https://github.com/roupasz/roupasz.github.io/blob/master/README.md) README.md file with the difference that the A records pointing to Github are configured via [Plesk Panel](http://hermes.dnhost.net:8880/) which is accessed via [dnhost control panel](https://my.dnhost.gr/domains/256994)
+
 ## Features
 
 This theme comes with a number of features, including:
