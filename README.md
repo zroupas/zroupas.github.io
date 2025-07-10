@@ -1,6 +1,7 @@
-# Centrarium [![Circle CI](https://circleci.com/gh/bencentra/centrarium/tree/master.svg?style=svg)](https://circleci.com/gh/bencentra/centrarium/tree/master).
+<h1><img src="./assets/logo.gif" alt="Logo" style="height: 2em;"></h1>
 
-A simple yet classy theme for your Jekyll website or blog. Customizable to fit your style or brand.
+A simple yet classy theme forked from 
+bencentra's amazing [Centrarium](https://github.com/bencentra/centrarium) and adjusted to my needs.
 
 Built with these awesome libraries:
 * [Bourbon][bourbon]
@@ -11,17 +12,28 @@ Built with these awesome libraries:
 * [HighlightJS][highlightjs]
 * [Lightbox][lightbox]
 
-Here's a [demo](http://bencentra.com/centrarium). It also works on [GitHub Pages](http://bencentra.github.io/centrarium/). I also use it for [my own website][bencentra].
+I use it for [my own website][myhomelab] and it also works on [GitHub Pages](https://github.com/zroupas/zroupas.github.io).
 
-Inspired by dirkfabisch's [Mediator](https://github.com/dirkfabisch/mediator) theme, which I previously used for my own blog, as well as [Type Theme](http://rohanchandra.github.io/type-theme/).
+**Cover** found and cropped from [imgur].
 
-Cover image by Chris M. Morris ([flickr][cover]).
+**AboutMe** gif found in [peakpx] and the animation was added by me with the use of [Piskel][piskelapp] online editor.
 
-## Custom domains and GitHub Pages configuration
+**Logo** <img src="./assets/logo.gif" alt="Logo" style="height: 0.8em;"> was created by me again with the help of [Piskel][piskelapp].
 
-At the moment this repo is accessible publicly via https://myhomelab.gr.
+## Configuring a custom domain for your GitHub Pages site
 
-In order to configure this, follow the steps found in [this](https://github.com/roupasz/roupasz.github.io/blob/master/README.md) README.md file with the difference that the A records pointing to Github are configured via [Plesk Panel](http://hermes.dnhost.net:8880/) which is accessed via [dnhost control panel](https://my.dnhost.gr/domains/256994)
+GitHub Pages supports using custom domains, or changing the root of your site's URL from the default, like zroupas.github.io, to any domain you own.
+
+You can find detailed information in [Github's Offical docs][custom-domain] but in a nutshell, you have to point your root domain (example.com, not : www.example.com, blog.example.com, etc) to the IP addresses of GitHub Pages site via your DNS hosting provider's panel.
+
+This involves setting A records in your DNS configuration pointing to GitHub’s IPs for apex domains:
+```
+185.199.108.153
+185.199.109.153
+185.199.110.153
+185.199.111.153
+```
+And optionally adding a CNAME record for www.example.com pointing to your GitHub Pages site.
 
 ## Features
 
@@ -38,7 +50,7 @@ This theme comes with a number of features, including:
 
 ## Installation
 
-If you're just getting started with Jekyll, you can use this repository as a starting point for your own site. Just [download this project](https://github.com/bencentra/centrarium/archive/master.zip) and add all the files to your project. Add your blog posts to the `posts/` directory, and create your pages with the proper Jekyll front matter (see `posts.html` for an example).
+If you're just getting started with Jekyll, you can use Ben's repository as a starting point for your own site. Just [download this project](https://github.com/bencentra/centrarium/archive/master.zip) and add all the files to your project. Add your blog posts to the `posts/` directory, and create your pages with the proper Jekyll front matter (see `posts.html` for an example).
 
 If your site already uses Jekyll, follow these steps:
 
@@ -197,7 +209,7 @@ You can add page-specific javascript files by adding them to the top-level `/js`
 layout: post
 title:  "Dummy Post"
 date:   2015-04-18 08:43:59
-author: Ben Centra
+author: Zois Roupas
 categories: Dummy
 custom_js:
 - Popmotion
@@ -221,13 +233,16 @@ Please follow these steps:
 1. Fork/clone this repository.
 2. Develop (and test!) your changes.
 3. Open a pull request on GitHub. A description and/or screenshot of changes would be appreciated!
-4. I ([Ben Centra](https://github.com/bencentra)) will review and merge the pull request.
+4. I ([Zois Roupas](https://github.com/zroupas)) will review and merge the pull request.
 
 ## License
 
 MIT. See [LICENSE.MD](https://github.com/bencentra/centrarium/blob/master/LICENSE.md).
 
-[bencentra]: http://bencentra.com
+[myhomelab]: https://myhomelab.gr
+[piskelapp]: https://www.piskelapp.com/
+[imgur]: https://imgur.com/gallery/whos-got-more-sleepy-calm-city-pixel-art-gif-H8nGu
+[peakpx]: https://www.peakpx.com/en/search?q=fire+pixel 
 [bourbon]: http://bourbon.io/
 [neat]: http://neat.bourbon.io/
 [bitters]: http://bitters.bourbon.io/
@@ -236,7 +251,7 @@ MIT. See [LICENSE.MD](https://github.com/bencentra/centrarium/blob/master/LICENS
 [highlightjs]: https://highlightjs.org/
 [highlightjs_theme]: https://highlightjs.org/static/demo/
 [lightbox]: http://lokeshdhakar.com/projects/lightbox2/
-[cover]: https://www.flickr.com/photos/79666107@N00/3796678503/in/photolist-6MuYfc-61Rtft-8XzPmY-a6Cozm-54eSMs-6oMJmk-aepZQq-9YkPHp-fiAEGE-dVP4Z5-oxPyJP-atKUFJ-9YHWA5-9YF2f2-9YF2gR-9YHVGN-9YHVvs-qZYYQ6-4JqP2i-a2peGy-9YHVUm-9YHVF7-9YHVCL-9YF3NK-cYteMo-aiPmb9-69dtAi-9YF21x-4aWpmn-7SLiUL-77pqVX-8vXbYv-4HGDSH-a2h5P1-8LsZrQ-9aj1ez-auPZ7q-9YHVMd-9YF2bi-9YF23D-8LpWpn-9an6KL-9YHVZL-dqZ3Cz-2GuvnX-9YHWUo-9YHVWd-p5Roh5-i1zTbv-6sYrUT
+[custom-domain]: https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site
 [disqus]: https://disqus.com/
 [ga]: http://www.google.com/analytics/
 [archives]: https://github.com/jekyll/jekyll-archives
