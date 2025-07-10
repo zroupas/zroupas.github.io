@@ -16,9 +16,9 @@ I use it for [my own website][myhomelab] and it also works on [GitHub Pages](htt
 
 **Cover** found and cropped from [imgur].
 
-**AboutMe** gif found in [peakpx] and the animation was added by me with the use of [Piskel][piskelapp] online editor.
+**AboutMe** image found in [peakpx] and the animation was added by me with the use of [Piskel][piskelapp] online editor.
 
-**Logo** <img src="./assets/logo.gif" alt="Logo" style="height: 0.8em;"> was created by me again with the help of [Piskel][piskelapp].
+Homelab **Logo** was created by me, again with the help of [Flaticon][flaticon] and [Piskel][piskelapp].
 
 ## Configuring a custom domain for your GitHub Pages site
 
@@ -243,6 +243,7 @@ MIT. See [LICENSE.MD](https://github.com/bencentra/centrarium/blob/master/LICENS
 [piskelapp]: https://www.piskelapp.com/
 [imgur]: https://imgur.com/gallery/whos-got-more-sleepy-calm-city-pixel-art-gif-H8nGu
 [peakpx]: https://www.peakpx.com/en/search?q=fire+pixel 
+[flaticon]: https://www.flaticon.com/
 [bourbon]: http://bourbon.io/
 [neat]: http://neat.bourbon.io/
 [bitters]: http://bitters.bourbon.io/
