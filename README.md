@@ -239,6 +239,8 @@ Please follow these steps:
 
 MIT. See [LICENSE.MD](https://github.com/bencentra/centrarium/blob/master/LICENSE.md).
 
+You may feel free to re-use any part of the structure, design, and layout of this site; it is all licensed under the MIT License. <br>However, the content of the site (blog posts and page content) is licensed under a Creative Commons Attribution license (you may use it, but must give attribution).
+
 [myhomelab]: https://myhomelab.gr
 [piskelapp]: https://www.piskelapp.com/
 [imgur]: https://imgur.com/gallery/whos-got-more-sleepy-calm-city-pixel-art-gif-H8nGu
