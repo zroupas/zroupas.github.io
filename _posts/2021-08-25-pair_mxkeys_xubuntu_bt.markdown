@@ -4,7 +4,7 @@ title: "Pair Logitech MX Keys with Xubuntu 18.04 via Bluetooth"
 date: 2021-08-25 19:32:59
 author: Zois Roupas
 categories: linux
-tags: linux,logitech,mxkeys,xubuntu,logi,bluetooth
+tags: [linux,logitech,mxkeys,xubuntu,logi,bluetooth]
 cover: "/assets/logi-mx-keys/post_cover.png"
 ---
 

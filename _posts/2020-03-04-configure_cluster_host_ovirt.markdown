@@ -3,8 +3,8 @@ layout: post
 title: "Configure oVirt Engine on CentOS 7 - Part One"
 date: 2020-03-04 20:32:59
 author: Zois Roupas
-categories: Virtualization
-tags: linux, ovirt
+categories: virtualization
+tags: [linux, ovirt]
 cover: "/assets/ovirt-conf/header.png"
 ---
 

@@ -4,7 +4,7 @@ title: "Amateur Stop Motion Short Film - Klouvi"
 date: 2022-11-20 20:32:59
 author: Zois Roupas
 categories: hobbies
-tags: video,marriage,proposal,short film,stop motion
+tags: [video,marriage,proposal,short film,stop motion]
 cover: "/assets/2022-11-20-marriage-proposal/klouvi_header.jpg"
 ---
 ### This is how I proposed to my girlfriend!

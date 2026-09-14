@@ -3,7 +3,7 @@ layout: post
 title: "Home Lab Infrastructure"
 date: 2019-08-25 15:32:59
 author: Zois Roupas
-categories: General
+categories: general
 tags: general infrastructure lab
 cover: "/assets/2019-08-25-home-lab/infra.png"
 ---

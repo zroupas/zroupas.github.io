@@ -3,8 +3,8 @@ layout: post
 title: "Automatically create virtual machines via Ansible and oVirt API - Part Two"
 date: 2021-11-17 20:32:59
 author: Zois Roupas
-categories: [linux, Virtualization, automation]
-tags: linux,ovirt,api,ansible
+categories: [linux, virtualization, automation]
+tags: [linux,ovirt,api,ansible]
 cover: "/assets/ansible-api-2/cover.png"
 ---
 ### Automatically create virtual machines via Ansible and oVirt API - Part Two.
