@@ -3,8 +3,8 @@ layout: post
 title: "Create and Export Full oVirt VM Backups to NFS Storage Domain"
 date: 2020-07-13 20:32:59
 author: Zois Roupas
-categories: Virtualization
-tags: linux,ovirt,nfs,export,qnap,vm,backup
+categories: virtualization
+tags: [linux,ovirt,nfs,export,qnap,vm,backup]
 cover: "/assets/ovirt-export/export.png"
 ---
 

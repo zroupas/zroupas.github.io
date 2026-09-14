@@ -3,7 +3,7 @@ layout: post
 title: "oVirt - Open Source Virtualization"
 date: 2019-09-01 15:32:59
 author: Zois Roupas
-categories: Virtualization
+categories: virtualization
 tags: ovirt
 cover: "/assets/2019-09-01-ovirt/ovirt-install.png"
 ---

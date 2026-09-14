@@ -180,12 +180,14 @@ For my setup, I have yet another repo 😆 which is initialized via chezmoi and 
 Now lets see how my *.terraformrc* looks like:
 `❯ chezmoi edit ~/.terraformrc`
 
-```
+```hcl
+{% raw %}
 {{- if eq .chezmoi.username "customuser" }}
 credentials "gitlab.com" {
-   token = "<REDUCTED>"
+    token = "<REDUCTED>"
  }
 {{- end }}
+{% endraw %}
 ```
 
 With chezmoi's templating power, a `~/.terraformrc` file will only be created if the user of the machine that I'm running `chezmoi apply` is **customuser** . Otherwise, no such file will be created.
