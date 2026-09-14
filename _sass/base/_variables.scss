@@ -1,3 +1,5 @@
+@use "sass:math";
+
 // Google Fonts
 @import url(//fonts.googleapis.com/css?family=Roboto+Slab:400,700,300|Roboto:400,700,300|Open+Sans:300italic,400italic,600italic,700italic,800italic,400,800,700,600,300);
 
@@ -18,7 +20,7 @@ $heading-line-height: 1.8;
 // Other Sizes
 $base-border-radius: 3px;
 $base-spacing: $base-line-height * $em-base;
-$small-spacing: $base-spacing / 2;
+$small-spacing: math.div($base-spacing, 2);
 $base-z-index: 0;
 
 // Colors

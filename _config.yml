@@ -132,6 +132,5 @@ sass:
   silence_deprecations:
     - import
     - slash-div
-    - color-functions
     - global-builtin
     - if-function
